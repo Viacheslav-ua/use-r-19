@@ -19,7 +19,7 @@ export function UsersPage() {
       <h1 className="text-3xl font-bold underline mb-8">Users</h1>
       <CreateUserForm refetchUsers={refetchUsers}/>
       <Suspense fallback={<div className="text-red-600">Loading...</div>}>
-        <UsersList usersPromise={usersPromise} />
+        <UsersList usersPromise={usersPromise} refetchUsers={refetchUsers} />
       </Suspense>
     </main>
 
