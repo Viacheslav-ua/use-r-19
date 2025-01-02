@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useState, useTransition } from "react"
 import { createUser } from "../../../shared/api"
 
 interface CreateUserFormProps {
@@ -8,15 +8,21 @@ interface CreateUserFormProps {
 export const CreateUserForm: FC<CreateUserFormProps> = ({ refetchUsers }) => {
 
   const [email, setEmail] = useState('')
+  const [isPending, startTransition] = useTransition()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    await createUser({
-      id: crypto.randomUUID(),
-      email,
+    startTransition(async () => {
+      await createUser({
+        id: crypto.randomUUID(),
+        email,
+      })
+      startTransition(() => {
+        refetchUsers()
+        setEmail('')
+      })
+
     })
-    refetchUsers()
-    setEmail('')
   }
 
   return (
@@ -26,10 +32,15 @@ export const CreateUserForm: FC<CreateUserFormProps> = ({ refetchUsers }) => {
         placeholder="Input Task"
         type="email"
         value={email}
+        disabled={isPending}
         onChange={e => setEmail(e.target.value)}
       />
-      <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white 
-          font-bold py-2 px-4 rounded" >Add</button>
+      <button
+        type="submit"
+        className="bg-blue-500 hover:bg-blue-700 text-white 
+          font-bold py-2 px-4 rounded disabled:bg-gray-400"
+        disabled={isPending}
+      >Add</button>
     </form>
   )
 }

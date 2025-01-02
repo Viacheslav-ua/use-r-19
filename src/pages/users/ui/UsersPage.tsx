@@ -9,7 +9,7 @@ const defaultUsersPromise = fetchUsers()
 export function UsersPage() {
 
   const [usersPromise, setUsersPromise] = useState(defaultUsersPromise)
-
+  
   const refetchUsers = () => {
     setUsersPromise(fetchUsers())
   }
@@ -18,7 +18,7 @@ export function UsersPage() {
     <main className="container mx-auto p-4 pt-10">
       <h1 className="text-3xl font-bold underline mb-8">Users</h1>
       <CreateUserForm refetchUsers={refetchUsers}/>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div className="text-red-600">Loading...</div>}>
         <UsersList usersPromise={usersPromise} />
       </Suspense>
     </main>
