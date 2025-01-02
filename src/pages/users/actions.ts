@@ -6,25 +6,21 @@ type CreateActionsState = {
 };
 
 export const createUserAction =
-  ({
-    refetchUsers,
-    setEmail,
-  }: {
-    refetchUsers: () => void;
-    setEmail: (email: string) => void;
-  }) =>
+  ({ refetchUsers }: { refetchUsers: () => void }) =>
   async (
     prevState: CreateActionsState,
-    formData: { email: string }
+    formData: FormData,
   ): Promise<CreateActionsState> => {
+
+    const email = String(formData.get('email'))
+
     try {
       await createUser({
         id: crypto.randomUUID(),
-        email: formData.email,
+        email,
       });
       startTransition(() => {
         refetchUsers()
-        setEmail("")
       })
 
       return {}

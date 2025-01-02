@@ -1,5 +1,4 @@
-import { FC, startTransition, useActionState, useState } from "react"
-// import { createUser } from "../../../shared/api"
+import { FC, useActionState } from "react"
 import { createUserAction } from "../actions"
 
 interface CreateUserFormProps {
@@ -8,27 +7,20 @@ interface CreateUserFormProps {
 
 export const CreateUserForm: FC<CreateUserFormProps> = ({ refetchUsers }) => {
 
-  const [email, setEmail] = useState('')
-  // const [isPending, startTransition] = useTransition()
-  const [state, dispatch, isPending] = useActionState(createUserAction({refetchUsers, setEmail}), {})
+  const [state, dispatch, isPending] = useActionState(
+    createUserAction({refetchUsers}), 
+    {}
+  )
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    startTransition(async () => {
-      dispatch({email})
-
-    })
-  }
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2">
+    <form action={dispatch} className="flex gap-2">
       <input
         className="border-b-2 border-gray-600 outline-none"
         placeholder="Input Task"
         type="email"
-        value={email}
+        name="email"
         disabled={isPending}
-        onChange={e => setEmail(e.target.value)}
       />
       <button
         type="submit"
