@@ -1,7 +1,21 @@
 {
-    "tasks": [
-        { "id": "1", "title": "a title", "views": 100 },
-        { "id": "2", "title": "another title", "views": 200 }
-    ],
-    "users": []
+  "tasks": [],
+  "users": [
+    {
+      "id": "1",
+      "email": "trtfy@exemple.com"
+    },
+    {
+      "id": "731b1749-520c-490c-b328-5fdd2a7c287f",
+      "email": "kjhh@gmail.com"
+    },
+    {
+      "id": "849c7844-af58-4216-989f-4ff59e11c73b",
+      "email": "sif@gmai.com"
+    },
+    {
+      "id": "8c563adf-7d11-4e7c-9bac-580d98f7e420",
+      "email": "asaass@gfd.com"
+    }
+  ]
 }
