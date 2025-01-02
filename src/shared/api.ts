@@ -9,6 +9,7 @@ export const fetchUsers = () => {
 }
 
 export const createUser = (user: User) => {
+  // throw new Error('Not created')
   return fetch('http://localhost:3008/users', {
     method: 'POST',
     headers: {

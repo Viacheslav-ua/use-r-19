@@ -1,5 +1,6 @@
-import { FC, useState, useTransition } from "react"
-import { createUser } from "../../../shared/api"
+import { FC, startTransition, useActionState, useState } from "react"
+// import { createUser } from "../../../shared/api"
+import { createUserAction } from "../actions"
 
 interface CreateUserFormProps {
   refetchUsers: () => void
@@ -8,19 +9,13 @@ interface CreateUserFormProps {
 export const CreateUserForm: FC<CreateUserFormProps> = ({ refetchUsers }) => {
 
   const [email, setEmail] = useState('')
-  const [isPending, startTransition] = useTransition()
+  // const [isPending, startTransition] = useTransition()
+  const [state, dispatch, isPending] = useActionState(createUserAction({refetchUsers, setEmail}), {})
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     startTransition(async () => {
-      await createUser({
-        id: crypto.randomUUID(),
-        email,
-      })
-      startTransition(() => {
-        refetchUsers()
-        setEmail('')
-      })
+      dispatch({email})
 
     })
   }
@@ -41,6 +36,7 @@ export const CreateUserForm: FC<CreateUserFormProps> = ({ refetchUsers }) => {
           font-bold py-2 px-4 rounded disabled:bg-gray-400"
         disabled={isPending}
       >Add</button>
+      {state.error && <div className="text-red-500">{state.error}</div>}
     </form>
   )
 }
