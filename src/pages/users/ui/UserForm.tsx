@@ -1,5 +1,5 @@
 import { FC, useActionState } from "react"
-import { createUserAction } from "../actions"
+import { createUserAction } from "../actions/create-user-action"
 
 interface CreateUserFormProps {
   refetchUsers: () => void
@@ -9,7 +9,7 @@ export const CreateUserForm: FC<CreateUserFormProps> = ({ refetchUsers }) => {
 
   const [state, dispatch, isPending] = useActionState(
     createUserAction({refetchUsers}), 
-    {}
+    {email: ''}
   )
 
 
@@ -20,6 +20,7 @@ export const CreateUserForm: FC<CreateUserFormProps> = ({ refetchUsers }) => {
         placeholder="Input Task"
         type="email"
         name="email"
+        defaultValue={state.email}
         disabled={isPending}
       />
       <button

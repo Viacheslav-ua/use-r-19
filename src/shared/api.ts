@@ -3,7 +3,7 @@ export type User = {
   email: string;
 };
 
-export const fetchUsers = () => {
+export const fetchUsers = (): Promise<User[]> => {
   return fetch('http://localhost:3008/users')
     .then(res => res.json() as Promise<User[]>)
 }

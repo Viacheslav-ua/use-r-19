@@ -1,5 +1,6 @@
-import { FC, useTransition } from "react"
-import { User, deleteUser } from "../../../shared/api"
+import { FC, useActionState } from "react"
+import { User } from "../../../shared/api"
+import { deleteUserAction } from "../actions/delete-user-action"
 
 
 interface UserCardProps {
@@ -9,26 +10,24 @@ interface UserCardProps {
 
 export const UserCard: FC<UserCardProps> = ({ user, refetchUsers }) => {
 
-  const [isPending, startTransition] = useTransition()
-
-  const handleDelete = async () => {
-
-    startTransition(async () => {
-      await deleteUser(user.id)
-      startTransition(() => refetchUsers())
-    })
-  }
+  const [state, handleDelete, isPending] = useActionState(
+    deleteUserAction({refetchUsers, id: user.id}), 
+    {}
+  )
 
   return (
     <div className="border p-2 m-2 rounded bg-gray-200 flex justify-between disabled:text-gray-400">
       {user.email}
-      <button
-        type="button"
+      <form action={handleDelete}>
+        <button
+        type="submit"
         disabled={isPending}
-        onClick={handleDelete}
       >
         Delete
+        {state.error && <div className="text-red-500">{state.error}</div>}
       </button>
+      </form>
+      
     </div>
   )
 }

@@ -1,19 +1,12 @@
-import { Suspense, useState } from "react"
-import { fetchUsers } from "../../../shared/api"
+import { Suspense } from "react"
 import { CreateUserForm } from "./UserForm"
 import { UsersList } from "./UsersList"
 import { ErrorBoundary } from "react-error-boundary"
-
-
-const defaultUsersPromise = fetchUsers()
+import { useUsers } from "../hooks/use-users"
 
 export function UsersPage() {
 
-  const [usersPromise, setUsersPromise] = useState(defaultUsersPromise)
-
-  const refetchUsers = () => {
-    setUsersPromise(fetchUsers())
-  }
+  const [usersPromise, refetchUsers] = useUsers()
 
   return (
     <main className="container mx-auto p-4 pt-10">
