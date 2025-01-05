@@ -1,17 +1,24 @@
 import { startTransition } from "react";
-import { createUser } from "../../../shared/api";
+import { createUser, User } from "../../../shared/api";
 
 type CreateActionsState = {
   error?: string
   email?: string
 };
 
+export type CreateUserAction = (
+  state: CreateActionsState, 
+  formData: FormData
+) => Promise<CreateActionsState>
+
+type CreateUserActionParams = {
+  refetchUsers: () => void
+  optimisticCreate: (user: User) => void
+}
+
 export const createUserAction =
-  ({ refetchUsers }: { refetchUsers: () => void }) =>
-  async (
-    _: CreateActionsState,
-    formData: FormData,
-  ): Promise<CreateActionsState> => {
+  ({ refetchUsers, optimisticCreate }: CreateUserActionParams): CreateUserAction =>
+  async (_, formData: FormData) => {
 
     const email = String(formData.get('email'))
 
@@ -23,6 +30,12 @@ export const createUserAction =
     }
 
     try {
+      const user = {
+        id: crypto.randomUUID(),
+        email,
+      }
+      optimisticCreate(user)
+      
       await createUser({
         id: crypto.randomUUID(),
         email,

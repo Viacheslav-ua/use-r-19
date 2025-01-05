@@ -1,14 +1,14 @@
 import { FC, useActionState } from "react"
-import { createUserAction } from "../actions/create-user-action"
+import { CreateUserAction } from "../actions/create-user-action"
 
 interface CreateUserFormProps {
-  refetchUsers: () => void
+  createUserAction: CreateUserAction
 }
 
-export const CreateUserForm: FC<CreateUserFormProps> = ({ refetchUsers }) => {
+export const CreateUserForm: FC<CreateUserFormProps> = ({ createUserAction }) => {
 
   const [state, dispatch, isPending] = useActionState(
-    createUserAction({refetchUsers}), 
+    createUserAction, 
     {email: ''}
   )
 

@@ -4,12 +4,22 @@ type DeleteUserActionState = {
   error?: string;
 };
 
-export const deleteUserAction = 
-({ refetchUsers, id }: { refetchUsers: () => void, id: string }) =>
-  async (): Promise<DeleteUserActionState> => {
+export type DeleteUserAction = (
+  state: DeleteUserActionState, 
+  formData: FormData
+) => Promise<DeleteUserActionState>
 
+interface DeleteUserActionParams {
+  refetchUsers: () => void;
+  optimisticDelete: (id: string) => void
+}
+
+export const deleteUserAction = ({ refetchUsers, optimisticDelete }: DeleteUserActionParams): DeleteUserAction =>
+  async (_, formData): Promise<DeleteUserActionState> => {
+    const id = String(formData.get('id'))
+    optimisticDelete(id)
     try {
-      await deleteUser(id)
+      await deleteUser(String(id))
       refetchUsers()
 
       return {}

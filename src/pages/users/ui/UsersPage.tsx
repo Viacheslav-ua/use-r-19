@@ -6,17 +6,17 @@ import { useUsers } from "../hooks/use-users"
 
 export function UsersPage() {
 
-  const [usersPromise, refetchUsers] = useUsers()
+  const { createUserAction, deleteUserAction, useUsersList } = useUsers()
 
   return (
     <main className="container mx-auto p-4 pt-10">
       <h1 className="text-3xl font-bold underline mb-8">Users</h1>
-      <CreateUserForm refetchUsers={refetchUsers} />
+      <CreateUserForm createUserAction={createUserAction} />
       <ErrorBoundary fallbackRender={
         (e) => <div className="text-red-500">Something went wrong: {JSON.stringify(e.error)}</div>
       }>
         <Suspense fallback={<div className="text-red-600">Loading...</div>}>
-          <UsersList usersPromise={usersPromise} refetchUsers={refetchUsers} />
+          <UsersList useUsersList={useUsersList} deleteUserAction={deleteUserAction} />
         </Suspense>
       </ErrorBoundary>
 
