@@ -1,4 +1,4 @@
-import { deleteUser } from "../../../shared/api";
+import { deleteUser } from "../../../shared/api/apiUsers";
 
 type DeleteUserActionState = {
   error?: string;

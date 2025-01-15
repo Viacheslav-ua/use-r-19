@@ -1,5 +1,27 @@
 {
-  "tasks": [],
+  "tasks": [
+    {
+      "id": "string",
+      "userId": "d883619a-a81b-45c8-a350-dcee0250589c",
+      "title": "string",
+      "done": true,
+      "createdAt": "string"
+    },
+    {
+      "id": "4e1170fa-7b4b-4b68-ad82-c98e4d0ad51c",
+      "title": "task 1",
+      "done": false,
+      "createdAt": 1736950352433,
+      "userId": "ed926bc5-9fbc-4675-8fef-14dbf6266621"
+    },
+    {
+      "id": "997e5be9-8049-44bf-b4a3-a2436c52239e",
+      "title": "task3",
+      "done": false,
+      "createdAt": 1736952589816,
+      "userId": "ed926bc5-9fbc-4675-8fef-14dbf6266621"
+    }
+  ],
   "users": [
     {
       "id": "ed926bc5-9fbc-4675-8fef-14dbf6266621",

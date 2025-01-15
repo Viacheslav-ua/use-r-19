@@ -1,5 +1,5 @@
 import { startTransition, use, useOptimistic, useState } from "react"
-import { fetchUsers, User } from "../../../shared/api"
+import { fetchUsers, User } from "../../../shared/api/apiUsers"
 import { createUserAction } from "../actions/create-user-action"
 import { deleteUserAction } from "../actions/delete-user-action"
 

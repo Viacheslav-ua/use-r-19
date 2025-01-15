@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { User } from "../../../shared/api"
+import { User } from "../../../shared/api/apiUsers"
 import { UserCard } from "./UserCard"
 import { DeleteUserAction } from "../actions/delete-user-action"
 

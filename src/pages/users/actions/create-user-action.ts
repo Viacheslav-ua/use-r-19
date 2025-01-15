@@ -1,5 +1,5 @@
 import { startTransition } from "react";
-import { createUser, User } from "../../../shared/api";
+import { createUser, User } from "../../../shared/api/apiUsers";
 
 type CreateActionsState = {
   error?: string
@@ -35,7 +35,7 @@ export const createUserAction =
         email,
       }
       optimisticCreate(user)
-      
+
       await createUser({
         id: crypto.randomUUID(),
         email,
