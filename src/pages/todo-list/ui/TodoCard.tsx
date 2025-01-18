@@ -1,6 +1,7 @@
-import { FC, useActionState } from "react"
+import { FC, Suspense, useActionState } from "react"
 import { Task } from "../../../shared/api/apiTasks"
 import { deleteTaskAction } from "../actions/delete-task-action"
+import { UserPreview } from "./UserPreview"
 
 interface TaskCardProps {
   task: Task
@@ -15,9 +16,12 @@ export const TaskCard: FC<TaskCardProps> = ({ task, refetchTasks }) => {
   )
 
   return (
-    <div className="border p-2 m-2 rounded bg-gray-200 flex justify-between disabled:text-gray-400">
-      {task.title}
-      <form action={handleDelete}>
+    <div className="border p-2 m-2 rounded bg-gray-200 flex disabled:text-gray-400">
+      {task.title} -&nbsp; 
+      <Suspense>
+        <UserPreview userId={task.userId} />
+      </Suspense>
+      <form action={handleDelete} className="ml-auto">
         <input type="hidden" name="id" value={task.id} />
         <button
           type="submit"

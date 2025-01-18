@@ -1,5 +1,5 @@
-import { createContext, startTransition, use, useContext, useState } from "react";
-import { User, fetchUsers } from "../../../shared/api/apiUsers";
+import { createContext, startTransition, use, useState } from "react";
+import { User, fetchUsers } from "../../shared/api/apiUsers";
 
 export type UserContextType = {
   usersPromise: Promise<User[]>
